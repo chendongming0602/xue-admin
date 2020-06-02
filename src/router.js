@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import {indexRouter} from "@/router/index";
 import store from '@/store'//引入store(vuex)
 Vue.use(Router)
 
@@ -25,12 +26,13 @@ Vue.use(Router)
 const router=new Router({
   routes: [
           {
-            path:'/',
+            path:'/login',
             component:() => import('@/pages/login.vue'),
             meta:{
               is:false
             }
           },
+          ...indexRouter
       ]
 })
 // 1、to:即将要进入的目标路由对象；

@@ -5,7 +5,7 @@
  </div>
 </template>
 
-<style>
+<style lang="scss">
    .list-title{
         text-align: center;
         padding: 10px;

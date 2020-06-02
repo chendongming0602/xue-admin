@@ -2,10 +2,14 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 Vue.use(Vuex);
 const state={//要设置的全局访问的state对象
-    userInfo:{},//用户信息
-    token:""
+    userInfo:{name:1},//用户信息
+    token:"",
+    tabs:[]
 };
 const getters={//读取值(this.$store.getters.isList)
+    getTabs(state){
+        return state.tabs
+    },
     info(state){
         return state.userInfo
     },

@@ -39,10 +39,11 @@ new Vue({
   render: h => h(App),
   created(){
     // 从sessionStorage中取值
+  //   console.log(sessionStorage.getItem('store'))
   if (sessionStorage.getItem('store')) {
       store.replaceState(Object.assign({}, store.state, JSON.parse(sessionStorage.getItem('store'))));
       sessionStorage.removeItem('store');
-    }
+  }
     
     // 监听页面刷新，将数据全部保存到sessionStorage中
     window.addEventListener('beforeunload', () => {

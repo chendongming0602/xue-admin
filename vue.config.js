@@ -1,4 +1,16 @@
 
+module.exports = {
+	//配置全局样式变量
+	css: {
+		loaderOptions: {
+			sass: {
+				data: `@import "@/css/all.scss";`
+			}
+		}
+    },
+    //隐藏代码
+    productionSourceMap: false
+}
 // const path = require('path')
 // module.exports = {
     //productionSourceMap: false,//隐藏代码
