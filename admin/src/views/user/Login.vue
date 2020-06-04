@@ -1,17 +1,17 @@
 <template>
     <div class="login-wrap">
         <div class="ms-login">
-            <div class="ms-title">后台管理系统</div>
+            <div class="ms-title">登录系统</div>
             <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
                 <el-form-item prop="username">
-                    <el-input v-model="param.username" placeholder="username">
+                    <el-input v-model="param.username" placeholder="用户名">
                         <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
                     </el-input>
                 </el-form-item>
                 <el-form-item prop="password">
                     <el-input
                         type="password"
-                        placeholder="password"
+                        placeholder="密码"
                         v-model="param.password"
                         @keyup.enter.native="submitForm()"
                     >
@@ -20,9 +20,9 @@
                 </el-form-item>
                 <div class="login-btn">
                     <el-button type="primary" @click="submitForm()">登录</el-button>
-                    <el-button type="info" @click="submitForm()">注册</el-button>
+                    <router-link to="reg"><el-button type="info" class="reg-but">注册</el-button></router-link>
                 </div>
-                <p class="login-tips">Tips : 用户名和密码随便填。</p>
+                <!-- <p class="login-tips">Tips : 用户名和密码随便填。</p> -->
             </el-form>
         </div>
     </div>
@@ -33,8 +33,8 @@ export default {
     data: function() {
         return {
             param: {
-                username: 'admin',
-                password: '123123',
+                username: '',
+                password: '',
             },
             rules: {
                 username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
@@ -80,7 +80,7 @@ export default {
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 350px;
+    width: 450px;
     margin: -190px 0 0 -175px;
     border-radius: 5px;
     background: rgba(255, 255, 255, 0.3);
@@ -94,12 +94,18 @@ export default {
 }
 .login-btn button {
     width: 100%;
-    height: 36px;
+    height: 45px;
     margin-bottom: 10px;
 }
 .login-tips {
     font-size: 12px;
     line-height: 30px;
     color: #fff;
+}
+.reg-but{
+    margin: 0;
+}
+.ms-login >>> .el-input--small .el-input__inner{
+    height: 45px;
 }
 </style>

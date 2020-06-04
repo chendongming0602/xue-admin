@@ -19,6 +19,7 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "dashboard" */ '@/views/index/index'),
                     meta: { title: '首页' }
                 },
+                
                 {
                     path: '/icon',
                     component: () => import(/* webpackChunkName: "icon" */ '../components/page/Icon.vue'),
@@ -108,6 +109,11 @@ export default new Router({
             path: '/login',
             component: () => import(/* webpackChunkName: "login" */ '@/views/user/Login'),
             meta: { title: '登录' }
+        },
+        {
+            path: '/reg',
+            component: () => import(/* webpackChunkName: "dashboard" */ '@/views/user/reg'),
+            meta: { title: '注册' }
         },
         {
             path: '*',
