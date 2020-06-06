@@ -24,6 +24,16 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "dashboard" */ '@/views/student/add'),
                     meta: { title: '添加学生' }
                 },
+                {
+                    path: '/studentList',
+                    component: () => import(/* webpackChunkName: "dashboard" */ '@/views/student/list'),
+                    meta: { title: '学生列表' }
+                },
+                {
+                    path: '/perAdd',
+                    component: () => import(/* webpackChunkName: "dashboard" */ '@/views/per/add'),
+                    meta: { title: '添加成绩' }
+                },
                 
                 {
                     path: '/icon',

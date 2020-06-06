@@ -18,17 +18,6 @@ const storage = multer.diskStorage({
         cb(null, math +"-"+ file.originalname)
     }
 });
-
-const storage2 = multer.diskStorage({
-    //存储的位置
-    destination(req, file, cb){
-        cb(null, "public/vue/public/text")
-    },
-    //文件名字的确定 multer默认帮我们取一个没有扩展名的文件名，因此需要我们自己定义
-    filename(req, file, cb){
-        cb(null, Date.now() +"-"+ file.originalname)
-    }
-});
  //传入storage 除了这个参数我们还可以传入dest等参数
 let upload = multer({
     storage
@@ -53,26 +42,61 @@ let imgs=(req,res)=>{
         });
     });
 };
- const upload2 = multer({storage:storage2});//文件
+
+
+
+//上传头像
 router.post('/img',async(req,res,next)=>{
     let result=await imgs(req,res);
     if(result===0) return res.send({code:500,message:"图片上传失败"});
     res.send({code:1,message:"图片上传成功",data:result})
     // console.log(req.file)
 });
+//添加学生数据
+router.post("/addStudent",(req,res)=>{
+    let sql="INSERT INTO student(name,sex,class,img) VALUES (?,?,?,?)",obj=req.body;
+    pool.query(sql,[obj.name,obj.sex,obj.class,obj.img],(err,result)=>{
+        if(err) return res.send({code:500,message:"添加学生信息错误",err});
+        res.send({code:1,message:"添加学生信息成功"});
+    });
+});
+//查询学生数据
+router.get("/listStudent",(req,res)=>{
+    let sql="SELECT id,name,sex,class,img FROM student";
+    pool.query(sql,(err,result)=>{
+        if(err) return res.send({code:500,message:"学生列表查询失败",err});
+        res.send({code:1,message:"查询学生列表成功",data:result});
+    });
+});
+//修改学生数据
+router.post("/changeStudent",(req,res)=>{
+    let sql="UPDATE student SET name=?,sex=?,class=? WHERE id=?",obj=req.body;
+    pool.query(sql,[obj.name,obj.sex,obj.class,obj.id],(err,result)=>{
+        if(err) return res.send({code:500,message:"修改学生信息错误",err});
+        res.send({code:1,message:"修改学生信息成功"});
+    });
+});
+//删除学生
+router.post("/deleStudent",(req,res)=>{
+    let sql="DELETE FROM student WHERE id=?",obj=req.body;
+    pool.query(sql,[obj.id],(err,result)=>{
+        if(err) return res.send({code:500,message:"修改学生错误",err});
+        res.send({code:1,message:"删除成功"});
+    });
+});
 
-
-
-
-router.post('/text',upload2.single('text'),(req,res,next)=>{
-    let url=req.file.originalname;
-	console.log(url)  
-	res.send({code:1,message:"上传文件成功",data:[]})
+router.post("/addPer",(req,res)=>{
+    let sql="INSERT INTO per(sid,minute,remark,img) VALUES (?,?,?,?)",obj=req.body;
+    pool.query(sql,[obj.sid,obj.minute,obj.remark,obj.img],(err,result)=>{
+        if(err) res.send({code:500,message:"添加成绩失败",err});
+        res.send({code:1,message:"添加成绩成功"});
+    });
 });
 
 
+
 ////////////////////////////////////////////////////////////////////////////////////
-//注册
+
 let check=(obj)=>{
     return new Promise((resolve,reject)=>{
         let sql="SELECT id FROM user WHERE name=?";
@@ -82,6 +106,7 @@ let check=(obj)=>{
         });
     })
 };
+//注册
 router.post("/reg",async (req,res)=>{
     let obj=req.body;
     let sql="INSERT INTO user(name,pwd,img) VALUES (?,?,?)";
@@ -103,78 +128,4 @@ router.post("/login",(req,res)=>{
         return res.send({code:1,message:"登录成功",data:{check:1,user:{name:obj.name,img:result[0].img}}});
     });
 });
-// let uploadEvent=(req,folder)=>{//上传的总函数
-// 	return new Promise((reslove,rejact)=>{
-// 	   const url = `public\/${req.file.filename}`;
-// 	   let name = /\.[^\.]+$/.exec(url);//后缀
-// 	   let math=Math.random();
-// 	   math=math.toString().replace(".","");//随机字符串
-	   
-// 	});
-// }
-// router.post("/reg",(req,res)=>{
-// 	var id="";
-// 	var uname=req.body.uname;
-// 	var upwd=req.body.upwd;
-// 	var email="";
-// 	var phone="";
-// 	var avatar=req.body.avatar;
-// 	var real_name="";
-// 	var sex="";
-// 	// console.log(uname,upwd)
-  
-// 	var sql="INSERT INTO mv_user VALUES (?,?,?,?,?,?,?,?)";//密码加密
-// 	pool.query(sql,[id,uname,upwd,email,phone,avatar,real_name,sex],(err,result)=>{
-// 	  if(err) throw err;
-// 	  if(result.affectedRows>0){
-// 		res.send({code:1,msg:"注册成功"});
-// 	  }else{
-// 		res.send({code:-1,msg:"注册失败"});
-// 	  }
-// 	});
-//   });
-  
-  
-//   router.post("/verify",(req,res)=>{//验证用户名是否已经存在
-// 	  var sql="SELECT uid FROM mv_user WHERE uname=?";
-// 	  pool.query(sql,[req.body.uname],function(err,result){
-// 		  if(err) throw err;
-// 		  if(result.length>0){
-// 			  res.send({code:-1,msg:"用户名已经存在"});
-// 		  }else{
-// 			  res.send({code:1,msg:"用户名可用"});
-// 		  };
-// 	  });
-//   });
-
-
-
-// router.post("/login",(req,res)=>{
-
-// 	var obj=req.body;
-// 	var sql="SELECT uid FROM mv_user WHERE uname=? AND upwd=?";//登录
-// 	  pool.query(sql,[obj.uname,obj.upwd],function(err,result){
-// 		  if(err) throw err
-// 		  if(result.length>0){
-// 		  req.session.uid=result[0].uid//session值
-// 		  // console.log(req.session)
-// 		  res.send({code:1,msg:"登录成功",session:req.session.uid});
-// 			  }else{
-// 		  res.send({code:-1,msg:"用户名或者密码错误"});
-// 		  };
-// 	  });
-//   });
-  
-//   router.post("/loglog",(req,res)=>{//登录返回用户名
-// 	var sql="SELECT uname,avatar FROM mv_user WHERE uid=?";
-// 	  pool.query(sql,[req.session.uid],function(err,result){
-// 		  if(err) throw err;
-// 		  if(result.length>0){
-// 			  res.send({code:1,data:result});
-// 		  }else{
-// 			  res.send({code:-1,msg:"请先登录"});
-// 		  };
-// 	  });
-//   });
-
 module.exports=router;

@@ -12,11 +12,12 @@
                 :http-request="submitEvent"
                 ref="album"
                 :auto-upload="false"
+                :limit="count"
             >
                 <i class="el-icon-plus"></i>
                 </el-upload>
                 <el-dialog :visible.sync="dialogVisible" size="tiny">
-                <img width="100%" :src="dialogImageUrl" alt="">
+                <img width="100%" :src="dialogImageUrl" alt="预览">
             </el-dialog>
         </div>
         
@@ -30,9 +31,15 @@ export default {
             type:Object,
             default:()=>{}
         },
+        //标题
         title:{
             type:String,
             default:"上传图片"
+        },
+        //上传个数（默认不限制）
+        count:{
+            type:Number,
+            default:0
         }
     },
     data(){
@@ -44,11 +51,19 @@ export default {
       };
     },
     methods: {
+        /*
+        父组件调用方法 子组件ref="album"
+            //调用上传图片
+            let res=this.$refs.album.parent();
+            //child()上次函数,isEmpty是否添加图片(false为没添加图片)，stop()上传结束调用
+            let {child,isEmpty,stop}=res;
+            if(!isEmpty) return this.$message.error("请选择学生照片")
+            child().then(()=>{
+                stop()
+            })
+        */ 
         parent(){
             this.$refs.album.submit();
-            console.log(this.isEmpty)
-            //没有选择图片
-            if(!this.isEmpty) return  Promise.resolve(0)
             //this.value此参数无法传到后端（bug）
             this.formData.append("value",this.value);
             let child=()=>{
@@ -57,23 +72,18 @@ export default {
                 data:this.formData,
                 method:"POST"
                 });
-            };
+            },isEmpty=this.isEmpty;
             this.isEmpty=false;
-            return  child
-            // .then(res=>{
-               
-            // }).finally(()=>{
-            //     this.formData = new FormData();
-            //     this.$refs.album.clearFiles();
-            // })
+            return  {child,isEmpty,stop:()=>{
+                this.formData = new FormData();
+                this.$refs.album.clearFiles();
+            }}
         },
         submitEvent(params){
-            console.log(123)
             this.isEmpty=true;
             this.formData.append("file", params.file);
         },
         handleRemove(file, fileList) {
-            // console.log(file, fileList);
         },
         handlePictureCardPreview(file) {
             this.dialogImageUrl = file.url;
@@ -86,14 +96,14 @@ export default {
 }
 </script>
 <style>
-   .album-box{
-       text-align: center;
-   }
-   .album-box>div{
-       padding: 5px;
-       font-size: 14px;
-       color: #666;
-   }
+    .album-box{
+        text-align: center;
+    }
+    .album-box>div{
+        padding: 5px;
+        font-size: 14px;
+        color: #666;
+    }
     .el-upload-dragger{
         width: 146px !important;
         height: 146px !important;

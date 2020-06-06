@@ -63,19 +63,30 @@ export default {
                 },
                 {
                     icon: 'el-icon-lx-cascades',
-                    index: 'table',
+                    index: '2',
                     title: '学生管理',
                     subs: [
                         {
                             index: 'studentAdd',
                             title: '添加学生'
                         },
+                        {
+                            index: 'studentList',
+                            title: '学生列表'
+                        },
                     ]
                 },
                 {
                     icon: 'el-icon-lx-copy',
-                    index: 'tabs',
-                    title: 'tab选项卡'
+                    index: '4',
+                    title: '成绩管理',
+                    subs: [
+                        {
+                            index: 'perAdd',
+                            title: '添加成绩'
+                        },
+                        
+                    ]
                 },
                 {
                     icon: 'el-icon-lx-calendar',

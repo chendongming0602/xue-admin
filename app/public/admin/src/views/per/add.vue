@@ -1,31 +1,28 @@
 <template>
     <div >
-        <div class="add-title">添 加 学 生</div>
+        <div class="add-title">添加学生成绩信息</div>
         <div class="add-input-box">
             <el-form ref="form" :model="list" label-width="80px" label-position="left" :rules="rules" :status-icon="true">
-                <el-form-item label="学生名字" prop="name">
-                    <el-input v-model="list.name" style="width:213px" placeholder="请输入学生名字"></el-input>
-                </el-form-item>
-               <el-form-item label="所在班级" prop="class">
-                    <el-select v-model="list.class" placeholder="请选择所在班级">
+               <el-form-item label="学生名字" prop="sid">
+                    <el-select v-model="list.sid" placeholder="请选择学生">
                         <el-option 
                             v-for="(t,i) in classList"
                             :key="i"
-                            :label="t"
-                            :value="t"
+                            :label="t.name"
+                            :value="t.id"
                         ></el-option>
                        
                     </el-select>
                 </el-form-item>
-                <el-form-item label="性别" prop="sex">
-                    <el-select v-model="list.sex" placeholder="请选择性别">
-                        <el-option label="男" value="男"></el-option>
-                        <el-option label="女" value="女"></el-option>
-                    </el-select>
+                <el-form-item label="总分数" prop="minute">
+                    <el-input v-model="list.minute" style="width:213px" placeholder="请输入学生总分数"></el-input>
+                </el-form-item>
+                <el-form-item label="备注" prop="remark">
+                    <el-input v-model="list.remark" style="width:213px" placeholder="请输入此次备注"></el-input>
                 </el-form-item>
             </el-form>
         </div>
-        <Album ref="album" title="请选择学生照片 (最多1张)" :count="1"></Album>
+        <Album ref="album" title="请上传成绩图片 (可多张)" :count="0"></Album>
         <el-button type="primary" round class="add-submit" @click="submit">确认添加</el-button>
         <!-- <img :src="require('@/assets/imgs/'+ img)" alt=""> -->
     </div>
@@ -37,58 +34,59 @@ export default {
         return{
             classList:[],
             list:{
-                name:"",
-                class:"",
-                sex:""
+                sid:"",
+                minute:"",
+                remark:""
             },
             rules:{
-                name:[
-                    { required: true, message: '请输入学生名字', trigger: 'blur' },
+                sid:[
+                    { required: true, message: '请选择学生名字', trigger: 'change' },
                 ],
-                class:[
-                    { required: true, message: '请选择所在班级', trigger: 'change' },
+                minute:[
+                    { required: true, message: '请输入学生总分数', trigger: 'blur' },
                 ],
-                  sex:[
-                    { required: true, message: '请选择学生性别', trigger: 'change' },
+                remark:[
+                    { required: true, message: '请输入此次备注', trigger: 'blur' },
                 ],
             }
         }
     },
     methods:{
+        async studentGET(){
+            let res=await this.axios({
+                path:"/user/listStudent",
+            });
+            this.classList=res;
+        },
         async submit(){
             this.$refs["form"].validate(async (valid)=>{
                 if(!valid) return;
                 let res=this.$refs.album.parent();
                 let {child,isEmpty,stop}=res;
-                if(!isEmpty) return this.$message.error("请选择学生照片")
+                if(!isEmpty) return this.$message.error("请上传成绩图片！")
                 let result=await child();
                 stop();
+                result=JSON.stringify(result);
                 let {list}=this;
                 this.axios({
-                    path:"/user/addStudent",
+                    path:"/user/addPer",
                     method:"POST",
                     data:{
-                        name:list.name,
-                        sex:list.sex,
-                        class:list.class,
-                        img:result[0]
+                        sid:list.sid,
+                        minute:list.minute,
+                        remark:list.remark,
+                        img:result
                     }
                 }).then(()=>{
+                    this.$message.success("添加成功！");
                     this.$refs["form"].resetFields();
-                    this.$confirm('是否跳转到《学生列表》?', '添加成功', {
-                        confirmButtonText: '跳转',
-                        cancelButtonText: '取消',
-                        type: 'warning'
-                        }).then(() => {
-                        this.$router.push("studentList");
-                    });
                 }).catch(err=>{this.$message.error(err.message)})
             });
            
         }
     },
     created(){
-        for(let i=1;i<=12;i++) this.classList.push(i+"班")
+        this.studentGET();
     },
     components:{
         Album

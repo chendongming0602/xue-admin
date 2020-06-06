@@ -66,18 +66,16 @@ const axios=function({path,method="GET",data={}}={}){
         })
     })
 };
-// let adminEvents=()=>{//判断是否为高级会员
-//     let user=store.getters.info;
-//     if(user.admin) return false;
-//     return true
-// }
+let $img=(arr)=>{//图片地址处理
+    return arr=arr.map(t=>config.img+t);
+}
 //3.设置跨域请求保护session
 // axios.defaults.withCredentials=true;
 //4.设置请求服务器基础路径
 
 //5.将axios注册  Vue示例
 Vue.prototype.axios=axios;
-// Vue.prototype.adminEvents=adminEvents;
+Vue.prototype.$img=$img;
 //7.在main.js 引入axios即可
 
 
