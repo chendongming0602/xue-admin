@@ -26,11 +26,13 @@
 
             <el-table-column label="操作" width="250" align="center">
                 <template slot-scope="scope">
-                    <el-button
-                        type="text"
-                        icon="el-icon-tickets"
-                        class="per"
-                    >成绩</el-button>
+                    <router-link :to="{path:'perLook',query:{id:scope.row.id}}">
+                        <el-button
+                            type="text"
+                            icon="el-icon-tickets"
+                            class="per"
+                        >成绩</el-button>
+                    </router-link>
                     <el-button
                         type="text"
                         icon="el-icon-edit"
@@ -105,7 +107,7 @@ export default {
     methods:{
         handleDelete(id,index){
             let str=`确定删除《${this.list[index].name}》同学信息吗？`
-             this.$confirm(str, '删除', {
+            this.$confirm(str, '删除', {
                 confirmButtonText: '确定删除',
                 cancelButtonText: '取消',
                 type: 'warning'

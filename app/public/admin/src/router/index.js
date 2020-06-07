@@ -34,6 +34,11 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "dashboard" */ '@/views/per/add'),
                     meta: { title: '添加成绩' }
                 },
+                {
+                    path: '/perLook',
+                    component: () => import(/* webpackChunkName: "dashboard" */ '@/views/per/look'),
+                    meta: { title: '查看成绩' }
+                },
                 
                 {
                     path: '/icon',

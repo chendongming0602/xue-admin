@@ -85,6 +85,7 @@ router.post("/deleStudent",(req,res)=>{
     });
 });
 
+//添加成绩
 router.post("/addPer",(req,res)=>{
     let sql="INSERT INTO per(sid,minute,remark,img) VALUES (?,?,?,?)",obj=req.body;
     pool.query(sql,[obj.sid,obj.minute,obj.remark,obj.img],(err,result)=>{
@@ -93,6 +94,25 @@ router.post("/addPer",(req,res)=>{
     });
 });
 
+//查询成绩
+router.get("/selePer",(req,res)=>{
+    let sql="SELECT id,sid,minute,remark,img FROM per WHERE sid=?",obj=req.query;
+    pool.query(sql,[obj.id],(err,result)=>{
+        if(err) return res.send({code:500,message:"查询成绩失败",err});
+        if(result.length===0) return res.send({code:1,message:"成绩列表为空",data:[]});
+        result.forEach(t=>t.img=JSON.parse(t.img));
+        res.send({code:1,message:"查询成绩成功",data:result});
+    });
+});
+
+//删除成绩
+router.post("/delePer",(req,res)=>{
+    let sql="DELETE FROM per WHERE id=?",obj=req.body;
+    pool.query(sql,[obj.id],(err,result)=>{
+        if(err) res.send({code:500,message:"删除成绩失败",err});
+        res.send({code:1,message:"删除成功"});
+    });
+});
 
 
 ////////////////////////////////////////////////////////////////////////////////////
