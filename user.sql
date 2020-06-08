@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 2020-06-06 12:13:47
+-- Generation Time: 2020-06-08 12:14:22
 -- 服务器版本： 10.1.28-MariaDB
 -- PHP Version: 5.6.32
 
@@ -38,15 +38,15 @@ CREATE TABLE IF NOT EXISTS `per` (
   `remark` varchar(255) NOT NULL,
   `img` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `per`
 --
 
 INSERT INTO `per` (`id`, `sid`, `minute`, `remark`, `img`) VALUES
-(1, 2, 'sdf', 'dsf', '[\"039822371867861506-1.jpg\"]'),
-(2, 4, '50', '打扫房间', '[\"05656465857705166-3.jpg\",\"02935815598095286-4.jpg\"]');
+(2, 4, '50', '打扫房间', '[\"05656465857705166-3.jpg\",\"02935815598095286-4.jpg\"]'),
+(3, 2, '12', '地方', '[\"0815733877133771-1.jpg\"]');
 
 -- --------------------------------------------------------
 
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`id`, `name`, `pwd`, `img`) VALUES
 (12, '懂1', 'dalf', 'adsfasdf'),
-(13, '男', '123', 'https://lovers-1300783623.cos.ap-shanghai.myqcloud.com/avatar/avatar.jpg');
+(13, '啊', '111111', '028204233312512517-微信图片_20200507151950.jpg');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

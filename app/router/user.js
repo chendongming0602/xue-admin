@@ -115,6 +115,7 @@ router.post("/delePer",(req,res)=>{
 });
 
 
+
 ////////////////////////////////////////////////////////////////////////////////////
 
 let check=(obj)=>{
@@ -141,11 +142,19 @@ router.post("/reg",async (req,res)=>{
 //登录
 router.post("/login",(req,res)=>{
     let obj=req.body,
-    sql="SELECT img FROM user WHERE name=? AND pwd=?";
+    sql="SELECT img,id FROM user WHERE name=? AND pwd=?";
     pool.query(sql,[obj.name,obj.pwd],(err,result)=>{
         if(err) return res.send({code:500,message:"登录出错",err});
         if(result.length===0) return res.send({code:1,message:"请输入正确的用户名和账号",data:{check:0}});
-        return res.send({code:1,message:"登录成功",data:{check:1,user:{name:obj.name,img:result[0].img}}});
+        return res.send({code:1,message:"登录成功",data:{check:1,user:{name:obj.name,img:result[0].img,id:result[0].id,pwd:obj.pwd}}});
+    });
+});
+//修改账户信息
+router.post("/changeUser",(req,res)=>{
+    let sql="UPDATE user SET name=?,pwd=?,img=? WHERE id=?",obj=req.body;
+    pool.query(sql,[obj.name,obj.pwd,obj.img,obj.id],(err,result)=>{
+        if(err) return res.send({code:500,message:"修改信息错误",err});
+        res.send({code:1,message:"修改成功"});
     });
 });
 module.exports=router;

@@ -46,6 +46,10 @@ export default {
         async submitForm() {
             this.$refs.login.validate(async valid => {
                 if (valid) {
+                    let reg=/^[a-zA-Z0-9]{6,12}$/;
+                    let reg2=/^[\u4e00-\u9fa5_a-zA-Z0-9]{2,6}$/;
+                    if(!reg2.test(this.param.username)) return this.$message.error("用户名不能大于6位数");
+                    if(!reg.test(this.param.password)) return this.$message.error("密码只能是6-12位的数字或字母！");
                     let res=await this.axios({
                         path:"/user/reg",
                         method:"POST",

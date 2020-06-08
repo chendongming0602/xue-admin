@@ -39,7 +39,23 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "dashboard" */ '@/views/per/look'),
                     meta: { title: '查看成绩' }
                 },
+                {
+                    path: '/change',
+                    component: () => import(/* webpackChunkName: "dashboard" */ '@/views/user/change'),
+                    meta: { title: '修改信息' }
+                },
+                {
+                    path: '/course',
+                    component: () => import(/* webpackChunkName: "dashboard" */ '@/views/course/course'),
+                    meta: { title: '课程管理' }
+                },
+
                 
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////                
                 {
                     path: '/icon',
                     component: () => import(/* webpackChunkName: "icon" */ '../components/page/Icon.vue'),
