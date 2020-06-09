@@ -61,6 +61,8 @@ export default {
         async submit(){
             this.$refs["form"].validate(async (valid)=>{
                 if(!valid) return;
+                let reg=/^\d*\.{0,1}\d{0,1}$/;
+                if(!reg.test(this.list.minute)) return this.$message.error("请输入正确分数！")
                 let res=this.$refs.album.parent();
                 let {child,isEmpty,stop}=res;
                 if(!isEmpty) return this.$message.error("请上传成绩图片！")

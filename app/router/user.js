@@ -114,7 +114,29 @@ router.post("/delePer",(req,res)=>{
     });
 });
 
+//查询课程
+router.get("/seleCou",(req,res)=>{
+    let sql="SELECT userid,time,content FROM cou";
+    pool.query(sql,(err,result)=>{
+        if(err) return res.send({code:500,message:"查询课程失败",err});
+        let arr=result[0],sql2="SELECT name,img FROM user WHERE id=?",name="",img="avatar.jpg";
+        arr.content=JSON.parse(arr.content);
+        pool.query(sql2,[arr.userid],(err2,result2)=>{
+            if(err2) return res.send({code:1,message:"老师资料出错",data:{arr,name,img}});
+            name=result2[0].name;img=result2[0].img;
+            res.send({code:1,message:"老师资料出错",data:{arr,name,img}});
+        });
+    });
+});
 
+//修改课程
+router.get("/upCou",(req,res)=>{
+    let sql="UPDATE cou SET userid=?,time=?,content=? WHERE id=?",obj=req.query,time=new Date().getTime()
+    pool.query(sql,[obj.userid,time,obj.content,obj.id],(err,result)=>{
+        if(err) res.send({code:500,message:"修改课程失败",err});
+        res.send({code:1,message:"修改课程成功",err});
+    });
+});
 
 ////////////////////////////////////////////////////////////////////////////////////
 

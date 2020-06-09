@@ -14,9 +14,9 @@ export default {
 </script>
 <style>
     .index-title{
-        font-size: 20px;
+        font-size: 26px;
         text-align: center;
-        padding: 50px;
-        color: #999;
+        padding: 80px;
+        color: #409EFF;
     }
 </style>

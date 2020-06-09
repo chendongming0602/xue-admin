@@ -10,10 +10,15 @@
     background: #00d1b2 !important;
     border: 1px solid #00d1b2 !important;
 }
+/* 背景 */
 .header,.el-menu,.el-menu-item,.el-submenu__title,.add-submit{
     background: #00d1b2 !important;
 }
-.el-menu-item,.el-submenu__title,.look-list .look-title,.add-title {
+/* 颜色 */
+.cou-jl-title,.add-title,.index-title,.cou-box th{
+    color: #00d1b2 !important;
+}
+.el-menu-item,.el-submenu__title,.look-list .look-title {
     color: #fff !important;
 }
 [class^=el-icon-]{
@@ -21,4 +26,16 @@
 }
 .el-menu-item.is-active{
     color: rgb(0, 255, 221) !important;
+}
+.cou-box td,.cou-box th{
+    border: 2px solid #00d1b2 !important;
+}
+.cou-out  .cou-dj{
+    border: 1px solid #00d1b2 !important;
+} 
+.cou-jl-box{
+    border-top: 1px solid rgb(0, 209, 178,0.5)!important;
+}
+.cou-box td:hover,.cou-box th{
+    background: rgb(0, 209, 178,0.2) !important;
 }

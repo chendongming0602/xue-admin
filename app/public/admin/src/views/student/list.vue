@@ -14,12 +14,13 @@
                 <template slot-scope="scope" >{{scope.row.sex}}</template>
             </el-table-column>
             <el-table-column prop="class" label="所在班级" align="center"></el-table-column>
-            <el-table-column label="头像(查看大图)" align="center" width="400">
+            <el-table-column label="头像(点击查看大图)" align="center" width="400">
                 <template slot-scope="scope">
                     <el-image
                         class="table-td-thumb"
                         :src="require('@/'+scope.row.img)"
                         :preview-src-list="[require('@/'+scope.row.img)]"
+                        fit="cover"
                     ></el-image>
                 </template>
             </el-table-column>

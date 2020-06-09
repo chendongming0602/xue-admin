@@ -14,8 +14,8 @@
                         class="look-img-item"
                         v-for="(tt,ii) of t.img"
                         :key="ii" 
-                    
                         :src="require('@/'+tt)" 
+                        fit="cover"
                         :preview-src-list="[require('@/'+tt)]">
                     </el-image>
                 </div>
@@ -43,7 +43,6 @@ export default {
                 t.img=this.$img(t.img);
                 t.show=true;
             });
-            console.log(res)
             this.list=res;
         },
         delePOST(id,index){

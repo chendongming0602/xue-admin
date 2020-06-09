@@ -82,7 +82,7 @@ export default {
                     title: '添加成绩',
                 },
                 {
-                    icon: 'el-icon-edit',
+                    icon: 'el-icon-time',
                     index: 'course',
                     title: '课程管理',
                 },
