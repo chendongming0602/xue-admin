@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 2020-06-08 12:14:22
+-- Generation Time: 2020-06-09 11:48:09
 -- 服务器版本： 10.1.28-MariaDB
 -- PHP Version: 5.6.32
 
@@ -27,6 +27,28 @@ USE `user`;
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `cou`
+--
+
+DROP TABLE IF EXISTS `cou`;
+CREATE TABLE IF NOT EXISTS `cou` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userid` int(11) NOT NULL,
+  `time` varchar(255) NOT NULL,
+  `content` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `cou`
+--
+
+INSERT INTO `cou` (`id`, `userid`, `time`, `content`) VALUES
+(1, 14, '1591688259942', '{\"one0\":\"语文\",\"one1\":\"数学\",\"one3\":\"语文\",\"one2\":\"化学\",\"one5\":\"物理\",\"one4\":\"物理\",\"two2\":\"语文\",\"two1\":\"体育\",\"two0\":\"计算机\",\"two3\":\"数学\",\"two5\":\"数学\",\"two4\":\"地理\",\"three3\":\"数学\",\"three2\":\"地理\",\"three1\":\"政治\",\"three0\":\"化学\",\"three4\":\"英语\",\"three5\":\"化学\",\"four4\":\"物理\",\"four5\":\"物理\",\"four2\":\"政治\",\"four3\":\"政治\",\"four1\":\"数学\",\"four0\":\"地理\",\"five2\":\"英语\",\"five1\":\"英语\",\"five0\":\"数学\",\"five3\":\"数学\",\"five5\":\"物理\",\"five4\":\"化学\"}');
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `per`
 --
 
@@ -38,15 +60,14 @@ CREATE TABLE IF NOT EXISTS `per` (
   `remark` varchar(255) NOT NULL,
   `img` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `per`
 --
 
 INSERT INTO `per` (`id`, `sid`, `minute`, `remark`, `img`) VALUES
-(2, 4, '50', '打扫房间', '[\"05656465857705166-3.jpg\",\"02935815598095286-4.jpg\"]'),
-(3, 2, '12', '地方', '[\"0815733877133771-1.jpg\"]');
+(4, 4, '98', '本次数学成绩', '[\"09020891142934737-1.jpg\"]');
 
 -- --------------------------------------------------------
 
@@ -69,7 +90,6 @@ CREATE TABLE IF NOT EXISTS `student` (
 --
 
 INSERT INTO `student` (`id`, `name`, `sex`, `class`, `img`) VALUES
-(2, '士大夫', '男', '2班', '047673528970490686-4.jpg'),
 (4, '小程', '男', '3班', '06585344629933516-3.jpg');
 
 -- --------------------------------------------------------
@@ -85,15 +105,15 @@ CREATE TABLE IF NOT EXISTS `user` (
   `pwd` varchar(255) NOT NULL,
   `img` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `user`
 --
 
 INSERT INTO `user` (`id`, `name`, `pwd`, `img`) VALUES
-(12, '懂1', 'dalf', 'adsfasdf'),
-(13, '啊', '111111', '028204233312512517-微信图片_20200507151950.jpg');
+(13, '小陈老师', '111111', '08288249892940631-詹姆斯.jpeg'),
+(14, '小薇老师', '111111', '07614797155211179-啊首付第三方.jpg');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
